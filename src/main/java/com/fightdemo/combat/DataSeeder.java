@@ -16,7 +16,6 @@ public class DataSeeder implements CommandLineRunner {
     @Override
     public void run(String... args){
         repo.save(new CountessPlayer("player_1", 100));
-        repo.save(new Enemy("enemy_1", 80, 5));
         System.out.println("Characters seeded");
     }
 }

@@ -14,6 +14,10 @@ public class CharacterRepository {
     public void save(GameCharacter character) {
         store.put(character.getCharacterId(), character);
     }
+    // For deleting spawning enemies after they die, not used for player
+    public void delete(String id) {
+        store.remove(id);
+    }
 
     public Optional<GameCharacter> findById(String id) {
         return Optional.ofNullable(store.get(id));

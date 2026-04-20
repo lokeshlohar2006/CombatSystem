@@ -5,6 +5,9 @@ import com.fightdemo.combat.model.*;
 import com.fightdemo.combat.repository.CharacterRepository;
 import com.fightdemo.combat.service.CombatService;
 
+import java.util.Map;
+import java.util.UUID;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -47,6 +50,12 @@ public class CombatController {
             new HealthResponse(req.targetId, newHp, target.getMaxHp(), target.isDead())
         );
     }
+    @PostMapping("/spawn/enemy")
+    public ResponseEntity<Map<String, String>> spawnEnemy() {
+        String id = UUID.randomUUID().toString();
+        repo.save(new Enemy(id, 80, 5));
+        return ResponseEntity.ok(Map.of("enemyId", id));
+    }
 
     //UE5 polls this to sync HP on screen
     @GetMapping("/health/{id}")
@@ -56,5 +65,11 @@ public class CombatController {
         return ResponseEntity.ok(
             new HealthResponse(id, c.getCurrentHp(), c.getMaxHp(), c.isDead())
         );
+    }
+
+    @DeleteMapping("/enemy/{id}")
+    public ResponseEntity<Void> removeEnemy(@PathVariable String id) {
+        repo.delete(id);
+        return ResponseEntity.noContent().build();
     }
 }
