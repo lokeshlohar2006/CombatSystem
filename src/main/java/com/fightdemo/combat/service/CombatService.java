@@ -24,7 +24,7 @@ public class CombatService {
         CountessPlayer player = (CountessPlayer) repo.findById(playerId)
                 .orElseThrow(() -> new RuntimeException("Player not found"));
 
-        int baseDamage = 25;
+        int baseDamage = 90; // MUST CHANGE TO REMOVE ONE SHOT EFFECT
         int finalDamage = (int)(baseDamage * player.getComboMultiplier());
         return applyDamage(targetId, finalDamage);
     }
